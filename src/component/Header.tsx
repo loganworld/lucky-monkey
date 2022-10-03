@@ -10,7 +10,7 @@ const Header = () => {
     let headerBtn = ['Membership', 'Community', 'Connect Wallet'];
 
     const [state, setStates] = React.useState({
-		display : [true, false, false],
+		display : [false, false, true],
         menuDisplay : false
 	})
     const updateStatus = (params: Partial<headerData>) => setStates({ ...state, ...params });

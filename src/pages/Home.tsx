@@ -2,7 +2,8 @@ import React from "react";
 import Header from "../component/Header";
 import "../assets/sass/home.scss";
 import "../assets/sass/animate.min.css";
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import ScrollAnimation from 'react-animate-on-scroll';
 import img_1 from "../assets/img/img-1.png";
 import img_2 from "../assets/img/img-2.png";
@@ -26,10 +27,24 @@ interface homeData {
 }
 
 const Home = () => {
-    let gameText1 = ['Game1', 'Game2', 'Game3'];
-    let gameText2 = ['Game1', 'Game2'];
-    let gameText3 = ['Game4', 'Game5', 'Game6'];
-    let gameText4 = ['Game3', 'Game4'];
+    const responsive = {
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 3,
+          slidesToSlide: 1 // optional, default to 1.
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2,
+          slidesToSlide: 1 // optional, default to 1.
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1,
+          slidesToSlide: 1 // optional, default to 1.
+        }
+      };
+    let gameText = ['Game1', 'Game2', 'Game3','Game4','Game5'];
     const [state, setStates] = React.useState({
         day : 0,
 		hour : 0,
@@ -164,11 +179,25 @@ const Home = () => {
                 </section>
                 <section>
                     <ScrollAnimation animateOnce={true} animateIn="slideInRight" animateOut="fadeOutUp">
-                        <Carousel>
-                            <Carousel.Item>
-                                <div className="d-lg-flex d-none row-center" style={{margin:'40px'}}>
-                                    {gameText1.map((i,k) => (
-                                        <div className="col4 img-div row" key={k}>
+                        <Carousel
+                            swipeable={false}
+                            draggable={false}
+                            showDots={true}
+                            responsive={responsive}
+                            ssr={true} // means to render carousel on server-side.
+                            infinite={true}
+                            autoPlay={true}
+                            autoPlaySpeed={2000}
+                            keyBoardControl={true}
+                            customTransition="all 0.5s"
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                            >
+                                {
+                                    gameText.map((i,k) => (
+                                        <div key={k} className="row img-div" style={{margin:'40px 15px'}}>
                                             <div className="col-5">
                                                 <img src={img_1} alt="." className="first-img" />
                                                 <img src={img_12} alt="." className="second-img" />
@@ -178,79 +207,9 @@ const Home = () => {
                                             </div>
                                             <div className="text my-3">{i}</div>
                                         </div>
-                                    ))}
-                                </div>
-                                <div className="d-lg-none d-md-flex d-none row-center" style={{margin:'40px'}}>
-                                    {gameText2.map((i,k) => (
-                                        <div className="col6 img-div row" key={k+3}>
-                                            <div className="col-5">
-                                                <img src={img_1} alt="." className="first-img" />
-                                                <img src={img_12} alt="." className="second-img" />
-                                            </div>
-                                            <div className="col-7">
-                                                <img src={img_13} alt="." className="third-img" />
-                                            </div>
-                                            <div className="text my-3">{i}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="d-md-none d-sm-flex row-center" style={{margin:'40px'}}>
-                                    <div className="col12 img-div row">
-                                        <div className="col-5">
-                                            <img src={img_1} alt="." className="first-img" />
-                                            <img src={img_12} alt="." className="second-img" />
-                                        </div>
-                                        <div className="col-7">
-                                            <img src={img_13} alt="." className="third-img" />
-                                        </div>
-                                        <div className="text my-3">Game1</div>
-                                    </div>
-                                </div>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                            <div className="d-lg-flex d-none row-center" style={{margin:'40px'}}>
-                                    {gameText3.map((i,k) => (
-                                        <div className="col4 img-div row" key={k+5}>
-                                            <div className="col-5">
-                                                <img src={img_1} alt="." className="first-img" />
-                                                <img src={img_12} alt="." className="second-img" />
-                                            </div>
-                                            <div className="col-7">
-                                                <img src={img_13} alt="." className="third-img" />
-                                            </div>
-                                            <div className="text my-3">{i}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="d-lg-none d-md-flex d-none row-center" style={{margin:'40px'}}>
-                                    {gameText4.map((i,k) => (
-                                        <div className="col6 img-div row" key={k+8}>
-                                            <div className="col-5">
-                                                <img src={img_1} alt="." className="first-img" />
-                                                <img src={img_12} alt="." className="second-img" />
-                                            </div>
-                                            <div className="col-7">
-                                                <img src={img_13} alt="." className="third-img" />
-                                            </div>
-                                            <div className="text my-3">{i}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="d-md-none d-sm-flex row-center" style={{margin:'40px'}}>
-                                    <div className="col12 img-div row">
-                                        <div className="col-5">
-                                            <img src={img_1} alt="." className="first-img" />
-                                            <img src={img_12} alt="." className="second-img" />
-                                        </div>
-                                        <div className="col-7">
-                                            <img src={img_13} alt="." className="third-img" />
-                                        </div>
-                                        <div className="text my-3">Game2</div>
-                                    </div>
-                                </div>
-                            </Carousel.Item>
-                            
-                        </Carousel>
+                                    ))
+                                }
+                        </Carousel>;
                     </ScrollAnimation>
                 </section> 
                 <section>
@@ -344,7 +303,7 @@ const Home = () => {
                                         <p className="gray">Mint Price: 1.05 ETH</p>
                                     </div>
                                     <div>
-                                        <p className="white">1.05 ETH</p>
+                                        <p className="white" style={{fontWeight:'500'}}>1.05 ETH</p>
                                         <p className="green">+15%</p>
                                     </div>
                                 </div>
@@ -359,7 +318,7 @@ const Home = () => {
                                         <p className="gray">Mint Price: 1.05 ETH</p>
                                     </div>
                                     <div>
-                                        <p className="white">1.05 ETH</p>
+                                        <p className="white" style={{fontWeight:'500'}}>1.05 ETH</p>
                                         <p className="green">+15%</p>
                                     </div>
                                 </div>
